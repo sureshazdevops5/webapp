@@ -26,6 +26,7 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    outputPath: '$(build.artifactStagingDirectory)\WebApp
 
 
 - task: PublishBuildArtifacts@1
