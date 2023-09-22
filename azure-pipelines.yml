@@ -32,7 +32,7 @@ steps:
     rootFolderOrFile: '$(WebApp)'
     includeRootFolder: true
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(WebApp).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(rootFolderOrFile).zip'
     replaceExistingArchive: true
 - task: PublishBuildArtifacts@1
   inputs:
