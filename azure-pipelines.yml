@@ -40,6 +40,6 @@ steps:
     zipAfterPublish: True
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
     ArtifactName: 'webapp'
     publishLocation: 'Container'
