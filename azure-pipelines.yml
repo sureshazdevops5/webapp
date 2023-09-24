@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'Default'
 
 variables:
   solution: '**/*.sln'
@@ -38,8 +38,3 @@ steps:
     publishWebProjects: true
     arguments: '-- configuration $(BuildConfiguration) --output$(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
-    ArtifactName: 'webapp'
-    publishLocation: 'Container'
