@@ -12,7 +12,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'dockerregistry'
   imageRepository: 'webapplication'
-  containerRegistry: 'testcontainerrghjkl/webapp'
+  containerRegistry: 'testcontainerrghjkl'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   solution: '**/*.sln'
