@@ -78,4 +78,4 @@ stages:
             appType: 'webApp'
             azureSubscription: 'self-connection'
             deploymentMethod: zipDeploy
-            package: '$(System.DefaultWorkingDirectory)'
+            package: '$(System.DefaultWorkingDirectory)/**/*.zip'
