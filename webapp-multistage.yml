@@ -74,8 +74,8 @@ stages:
        - task: AzureWebApp@1
          displayName: webapp deployment
          inputs:
-            appName: 'testkvv'
+            appName: 'exdfcedxsx'
             appType: 'webApp'
-            azureSubscription: 'own-service-connection'
+            azureSubscription: 'self-connection'
             deploymentMethod: zipDeploy
             package: '$(System.DefaultWorkingDirectory)'
