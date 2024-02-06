@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: 'docker-connection'
   imageRepository: 'webapplication'
   containerRegistry: 'test2gfvjgfv'
-  dockerfilePath: '$(Build.SourcesDirectory)'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
@@ -55,7 +55,7 @@ stages:
            displayName: dotnet-publish
            inputs:
               command: publish
-              arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+              arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/webapplication'
               publishWebProjects: true
               zipAfterPublish: false
 
@@ -71,7 +71,7 @@ stages:
            displayName: Build and push an image to container registry
            inputs:
             command: buildAndPush
-            buildContext: '$(Build.ArtifactStagingDirectory)'
+            buildContext: '$(Build.ArtifactStagingDirectory)/webapplication'
             repository: $(imageRepository)
             dockerfile: $(dockerfilePath)
             containerRegistry: $(dockerRegistryServiceConnection)
