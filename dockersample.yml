@@ -55,7 +55,7 @@ stages:
            displayName: dotnet-publish
            inputs:
               command: publish
-              arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/webapplication'
+              arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
               publishWebProjects: true
               zipAfterPublish: false
 
@@ -71,7 +71,7 @@ stages:
            displayName: Build and push an image to container registry
            inputs:
             command: buildAndPush
-            buildContext: '$(Build.ArtifactStagingDirectory)/webapplication'
+            buildContext: '$(Build.ArtifactStagingDirectory)/WebApplication1'
             repository: $(imageRepository)
             dockerfile: $(dockerfilePath)
             containerRegistry: $(dockerRegistryServiceConnection)
