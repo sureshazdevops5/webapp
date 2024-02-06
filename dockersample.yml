@@ -71,7 +71,7 @@ stages:
            displayName: Build and push an image to container registry
            inputs:
             command: buildAndPush
-            buildContext: '$(Build.ArtifactStagingDirectory)/WebApplication1'
+            buildContext: '$(Build.ArtifactStagingDirectory)/WebApp'
             repository: $(imageRepository)
             dockerfile: $(dockerfilePath)
             containerRegistry: $(dockerRegistryServiceConnection)
