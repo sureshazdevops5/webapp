@@ -10,9 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'docker-service-conn'
+  dockerRegistryServiceConnection: 'docker-connection'
   imageRepository: 'webapplication'
-  containerRegistry: 'testcontainerrghjkltestbjhfv'
+  containerRegistry: 'test2gfvjgfv'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   solution: '**/*.sln'
