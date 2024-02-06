@@ -74,7 +74,7 @@ stages:
        - task: AzureWebApp@1
          displayName: webapp deployment
          inputs:
-            appName: 'exdfcedxsx-staging'
+            appName: 'exdfcedxsx'
             appType: 'webApp'
             azureSubscription: 'self-connection'
             deploymentMethod: zipDeploy
