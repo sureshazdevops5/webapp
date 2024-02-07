@@ -10,10 +10,10 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '11350d6f-fdd7-4196-a8ca-343da49619dd'
+  dockerRegistryServiceConnection: 'docker-reg'
   imageRepository: 'webapplication'
-  containerRegistry: 'testsureshcontainer.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/WebApplication1/Dockerfile'
+  containerRegistry: 'testreghgbuyg.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
@@ -69,7 +69,7 @@ stages:
           displayName: Build and push an image to container registry
           inputs:
             command: buildAndPush
-            buildContext: '$(Pipeline.Workspace)/buildartifacts/WebApplication1'
+            buildContext: '$(Pipeline.Workspace)/buildartifacts/WebApp'
             repository: $(imageRepository)
             dockerfile: $(dockerfilePath)
             containerRegistry: $(dockerRegistryServiceConnection)
