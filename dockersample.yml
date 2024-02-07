@@ -75,7 +75,7 @@ stages:
   jobs:
     -  job: pushimage
        pool:
-         $(vmImage): $(vmImageName)
+         vmImage: $(vmImageName)
        steps:
        - download: current
          artifact: 'webappartifact'
