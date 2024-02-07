@@ -19,7 +19,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'windows-latest'
 
 stages:
 - stage: Build
