@@ -10,9 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'docker-connection'
+  dockerRegistryServiceConnection: 'docker-reg'
   imageRepository: 'webapplication'
-  containerRegistry: 'test2gfvjgfv'
+  containerRegistry: 'testreghgbuyg.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   solution: '**/*.sln'
@@ -64,6 +64,10 @@ stages:
            errorActionPreference: Continue
            displayName: 'List-Content'
            continueOnError: true
+          
+         - publish: '$(Build.ArtifactStagingDirectory)'
+           displayName: 'publish artifact'
+           artifact: 'webappartifact'
 
 
 - stage: Push
@@ -73,22 +77,28 @@ stages:
        pool:
          $(vmImage): $(vmImageName)
        steps:
-         - 
-         - task: Docker@2
-           displayName: Build and push an image to container registry
-           inputs:
-            command: buildAndPush
-            buildContext: '$(Build.ArtifactStagingDirectory)/WebApp'
-            repository: $(imageRepository)
-            dockerfile: $(dockerfilePath)
-            containerRegistry: $(dockerRegistryServiceConnection)
-            tags: |
-             $(tag)
+       - download: current
+         artifact: 'webappartifact'
+         displayName: 'download artifcat'
 
 
-         - task: PublishPipelineArtifact@1
-           displayName: publish artifact
-           inputs:
-              publishLocation: pipeline
-              artifact: 'sourcefiles'
-              targetPath: $(Pipeline.Workspace)
+       - script: ls -R $(pipeline.workspace)/webappartifact
+       - task: Docker@2
+         displayName: Build and push an image to container registry
+         inputs:
+          command: buildAndPush
+          buildContext: '$(pipeline.workspace)/webappartifact/WebApp'
+          repository: $(imageRepository)
+          Dockerfile: $(dockerfilePath)
+          containerRegistry: $(dockerRegistryServiceConnection)
+          tags: |
+           $(tag)
+
+
+
+       - task: PublishPipelineArtifact@1
+         displayName: publish artifact
+         inputs:
+           publishLocation: pipeline
+           artifact: 'siurcefiles'
+           targetPath: $(pipeline.Workspace)
