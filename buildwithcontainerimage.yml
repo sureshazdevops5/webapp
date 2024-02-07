@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: '11350d6f-fdd7-4196-a8ca-343da49619dd'
   imageRepository: 'webapplication'
   containerRegistry: 'testsureshcontainer.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/WebApplication1/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
