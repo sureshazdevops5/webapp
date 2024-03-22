@@ -29,3 +29,26 @@ steps:
   displayName: 'restore solutions'
   inputs:
      restoreSolution: '$(solution)'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet build
+  inputs:
+    command: build
+    arguments: '--configuration $(buildCOnfiguration)'
+    projects: '**/*.csproj'
+
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet publish
+  inputs:
+     command: publish
+     arguments: '--configuration $(buildconfiguration) --output $(Build.Artifactstagingdirectory)'
+     publishWebProjects: true
+     zipAfterPublish: false
+
+- task: PublishBuildArtifacts@1
+  displayName: publish artifact
+  inputs:
+     ArtifactName: webapp
+     PathtoPublish: $(build.Artifactstagingdirectory)
+     publishLocation: Container
