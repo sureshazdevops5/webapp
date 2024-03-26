@@ -84,6 +84,6 @@ stages:
         inputs:
            appName: 'xwjhdbxwwewe'
            appType: webApp
-           azureSubscription: 'azdevops-azsub'
+           azureSubscription: 'azdevopsapp-self-connection'
            deploymentMethod: zipDeploy
            package: $(pipeline.workspace)/**/*.zip
