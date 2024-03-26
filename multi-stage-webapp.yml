@@ -79,3 +79,11 @@ stages:
         displayName: listing files
 
 
+      - task: AzureWebApp@1
+        displayName: webapp deployment
+        inputs:
+           appName: 'xwjhdbxwwewe'
+           appType: webApp
+           azureSubscription: 'azdevopsapp-self-connection'
+           deploymentMethod: zipDeploy
+           package: $(pipeline.workspace)/**/*.zip
