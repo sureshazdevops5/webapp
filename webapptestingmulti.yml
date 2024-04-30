@@ -112,5 +112,5 @@ stages:
            -  download: 'current'
               artifact: 'webapp'
               displayName: artifact download
-           - script: ls -R $(System.DefaultWorkingDirectory)
-             displayName: listing files
+           -  script: ls -R $(System.DefaultWorkingDirectory)
+              displayName: listing files
