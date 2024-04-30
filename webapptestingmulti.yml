@@ -62,3 +62,55 @@ stages:
               displayName: artifact download
            - script: ls -R $(System.DefaultWorkingDirectory)
              displayName: listing files
+
+
+  - stage: QA
+    jobs:
+      - job: build
+        displayName: build job
+        pool: 
+         vmImage : $(vmImage)
+        steps:
+          -  task: UseDotNet@2
+             displayName: use dotnet
+             inputs:
+                packageType: sdk
+                version: '6.x'
+            
+          - task: NuGetToolInstaller@1
+            displayName: nuget install
+            
+          - task: NuGetCommand@2
+            displayName: nuget restore
+            inputs:
+               command: restore
+               restoreSolution: $(solutions)
+               
+          - task: DotNetCoreCLI@2
+            displayName: dotnetbuild
+            inputs:
+               command: build
+               arguments: '--configuration $(BuildConfiguration)'
+            
+          - task: DotNetCoreCLI@2
+            displayName: dotnet publish
+            inputs:
+               command: publish
+               arguments: '--configuration $(BuildConfiguration) --output $(Build.Artifactstagingdirectory)'
+               publishWebProjects: true
+               zipAfterPublish: false
+
+          - task: PublishBuildArtifacts@1
+            displayName: publish artifact
+            inputs:
+               ArtifactName: webapp
+               PathtoPublish: $(Build.Artifactstagingdirectory)
+      -  job: deployment
+         pool:
+          vmImage: $(vmImage)
+         steps:
+           -  download: 'current'
+              artifact: 'webapp'
+              displayName: artifact download
+           - script: ls -R $(System.DefaultWorkingDirectory)
+             displayName: listing files
