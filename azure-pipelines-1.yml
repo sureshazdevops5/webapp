@@ -42,3 +42,10 @@ steps:
      publishWebProjects: true
      zipAfterPublish: false
      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactstagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: build artifact
+  inputs:
+     ArtifactName: webapp
+     PathtoPublish: '$(Build.ArtifactstagingDirectory)'
+     publishLocation: Container
