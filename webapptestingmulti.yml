@@ -53,9 +53,6 @@ stages:
             inputs:
                ArtifactName: webapp
                PathtoPublish: $(Build.Artifactstagingdirectory)
-
-  - stage: Deploy
-    jobs:
       -  job: deployment
          pool:
           vmImage: $(vmImage)
