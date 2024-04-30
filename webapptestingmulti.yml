@@ -23,7 +23,7 @@ stages:
              displayName: use dotnet
              inputs:
                 packageType: sdk
-                version: '6.*'
+                version: '6.x'
             
           - task: NuGetToolInstaller@1
             displayName: nuget install
