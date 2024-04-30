@@ -53,3 +53,15 @@ stages:
             inputs:
                ArtifactName: webapp
                PathtoPublish: $(Build.Artifactstagingdirectory)
+
+  - stage: Deploy
+    jobs:
+      -  job: deployment
+         pool:
+          vmImage: $(vmImage)
+         steps:
+           -  download: 'current'
+              artifact: 'webapp'
+              displayName: artifact download
+           - script: ls -R $(System.DefaultWorkingDirectory)
+             displayName: listing files
