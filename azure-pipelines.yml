@@ -5,6 +5,12 @@
 
 trigger:
 - none
+schedules:
+  - cron: "30 8 * * 3"
+    branches:
+       include:
+         - master
+    always: true
 
 pool:
   vmImage: 'windows-latest'
