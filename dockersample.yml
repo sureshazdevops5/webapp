@@ -100,5 +100,5 @@ stages:
          displayName: publish artifact
          inputs:
            publishLocation: pipeline
-           artifact: 'siurcefiles'
+           artifact: 'sourcefiles'
            targetPath: $(pipeline.Workspace)
