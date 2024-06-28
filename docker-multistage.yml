@@ -87,6 +87,7 @@ stages:
   jobs:
     -  job: update
        steps:
+       - script: sudo yum update | sudo yum install dos2unix -y | dos2unix WebApp/updatemanifest.sh
        - task: ShellScript@2
          inputs:
            scriptPath: 'WebApp/updatemanifest.sh'
