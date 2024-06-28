@@ -80,7 +80,7 @@ stages:
           displayName: replace imageid
           inputs:
             targetType: 'inline'
-            script: 'sed -i "s|testsureshacr.azurecr.io/webapp:[0-9]*|testsureshacr.azurecr.io/webapp:$(Build.BuildId)|g" $(System.DefaultWorkingDirectory)/_webapp/webapp8080service.yaml'
+            script: 'sed -i "s|testsureshacr.azurecr.io/webapp:[0-9]*|testsureshacr.azurecr.io/webapp:$(Build.BuildId)|g" $(Pipeline.Workspace)/buildartifacts/webapp80service.yaml'
 
 
         - task: PublishPipelineArtifact@1
