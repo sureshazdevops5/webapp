@@ -89,8 +89,8 @@ stages:
        steps:
        - task: ShellScript@2
          inputs:
-           scriptPath: 'webapp/updatemanifest.sh'
-           args: 'webapp80 $imageRepository $tag'
+           scriptPath: 'WebApp/updatemanifest.sh'
+           args: 'webapp80 $(imageRepository) $(tag)'
 
        
 
