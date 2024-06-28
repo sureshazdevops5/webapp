@@ -1,9 +1,0 @@
-{
-	"name": "adff-testt",
-	"location": "eastus",
-	"identity": {
-		"type": "SystemAssigned",
-		"principalId": "45b746d3-3c35-4ffe-9e94-aa2d21a95026",
-		"tenantId": "3eefa82e-4ff2-4fa1-a0e6-48f59894a70f"
-	}
-}
