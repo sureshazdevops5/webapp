@@ -1,4 +1,3 @@
-#!/bin/bash
 dos2unix /home/vsts/work/1/s/WebApp/updatemanifest.sh
 set -x
 
