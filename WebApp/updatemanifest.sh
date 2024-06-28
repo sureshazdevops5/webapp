@@ -3,8 +3,8 @@
 set -x
 
 # Set the repository URL
+#REPO_URL="https://uutxfci222nbrlmyuzjm472kyob4jzncibkzib6nbxgf423ytaxq@dev.azure.com/sureshazdevops5/webapp/_git/webapp"
 REPO_URL="https://uutxfci222nbrlmyuzjm472kyob4jzncibkzib6nbxgf423ytaxq@dev.azure.com/sureshazdevops5/webapp/_git/webapp"
-
 # Clone the git repository into the /tmp directory
 git clone "$REPO_URL" /tmp/temp_repo
 
