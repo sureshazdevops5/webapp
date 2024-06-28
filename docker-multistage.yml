@@ -75,6 +75,12 @@ stages:
             containerRegistry: $(dockerRegistryServiceConnection)
             tags: |
              $(tag)
+        - task: PublishPipelineArtifact@1
+          inputs:
+             artifact: 'sourcefiles'
+             targetPath: '$(Pipeline.Workspace)'
+             publishLocation: pipeline
+
 
 - stage: update
   displayName: update manifest
@@ -82,19 +88,13 @@ stages:
     -  job: update
        steps:
        - task: ShellScript@2
+         inputs:
+          scriptPath: 'updatemanifest.sh'
+          args: 'webapp80 $imageRepository $tag'
 
-            
-        - task: Bash@3
-          displayName: replace imageid
-          inputs:
-            targetType: 'inline'
-            script: 'sed -i "s|testsureshacr.azurecr.io/webapp:[0-9]*|testsureshacr.azurecr.io/webapp:$(Build.BuildId)|g" webapp80service.yaml'
+       
 
 
-        - task: PublishPipelineArtifact@1
-          inputs:
-             artifact: 'sourcefiles'
-             targetPath: '$(Pipeline.Workspace)'
-             publishLocation: pipeline
+
 
 
