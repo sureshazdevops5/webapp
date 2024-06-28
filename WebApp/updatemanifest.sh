@@ -1,15 +1,8 @@
 #!/bin/bash
 
-# Convert line endings to Unix format
-dos2unix /home/vsts/work/1/s/WebApp/updatemanifest.sh
-
 set -x
 
-# Set Git user identity
-git config --global user.email "sureshazdevops5@gmail.com"
-git config --global user.name "Suresh Nunna"
-
-# Set the repository URL (ensure PAT is correctly handled)
+# Set the repository URL
 REPO_URL="https://uutxfci222nbrlmyuzjm472kyob4jzncibkzib6nbxgf423ytaxq@dev.azure.com/sureshazdevops5/webapp/_git/webapp"
 
 # Clone the git repository into the /tmp directory
@@ -19,6 +12,7 @@ git clone "$REPO_URL" /tmp/temp_repo
 cd /tmp/temp_repo
 
 # Make changes to the Kubernetes manifest file(s)
+# For example, let's say you want to change the image tag in a deployment.yaml file
 sed -i "s|image:.*|image: testsureshacr.azurecr.io/$2:$3|g" $1-service.yaml
 
 # Add the modified files
