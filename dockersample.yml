@@ -68,6 +68,12 @@ stages:
          - publish: '$(Build.ArtifactStagingDirectory)'
            displayName: 'publish artifact'
            artifact: 'webappartifact'
+          
+         - pwsh:
+            Get-ChildItem -path $(Build.ArtifactStagingDirectory)\*.* -Recurse -Force | Out-String -Width 80
+           errorActionPreference: Continue
+           displayName: 'List-Content'
+           continueOnError: true
 
 
 - stage: Push
