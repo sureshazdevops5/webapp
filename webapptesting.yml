@@ -58,4 +58,3 @@ steps:
      storage: 'satestsu'
      ContainerName: test
      Destination: AzureBlob
-     AdditionalArgumentsForBlobCopy: '--recursive=true --destination-path=test/'
