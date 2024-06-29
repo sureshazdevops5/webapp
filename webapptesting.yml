@@ -49,3 +49,11 @@ steps:
      ArtifactName: webapp
      PathtoPublish: '$(Build.ArtifactstagingDirectory)'
      publishLocation: Container
+- task: AzureFileCopy@6
+  displayName: copying to storage
+  inputs:
+     SourcePath: $(Build.ArtifactstagingDirectory)
+     azureSubscription: 'self-devops-webapp'
+     resourceGroup: 'sa-rg'
+     storage: 'satestsu'
+     ContainerName: test
