@@ -57,3 +57,4 @@ steps:
      resourceGroup: 'sa-rg'
      storage: 'satestsu'
      ContainerName: test
+     Destination: AzureBlob
