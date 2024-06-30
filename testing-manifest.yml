@@ -46,9 +46,13 @@ steps:
    zipAfterPublish: false
    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-- publish: '$(Build.ArtifactStagingDirectory)'
-  displayName: 'publish-build'
-  artifact: buildartifacts
+- task: PublishBuildArtifacts@1
+  displayName: publish artifact
+  inputs:
+     ArtifactName: webapp
+     publishLocation: Container
+     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+
 
 - script: ls -R $(Pipeline.Workspace)/buildartifacts
 
