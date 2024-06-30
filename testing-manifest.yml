@@ -54,7 +54,7 @@ steps:
      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
 
-- script: ls -R $(Pipeline.Workspace)/buildartifacts
+- script: ls -R $(Build.ArtifactStagingDirectory)
 
 
 - task: Docker@2
