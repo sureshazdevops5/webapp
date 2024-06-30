@@ -9,7 +9,7 @@ spec:
   ports: 
    - protocol: TCP 
      port: 80
-     targetPort: 8081
+     targetPort: 80
      name: http-webapp8081
 
 ---
@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
       - name: webapp8081
-        image: testsureshacr.azurecr.io/webapp:8081
+        image: testsureshacr.azurecr.io/(imageRepository):$(tag)
         ports:
-        - containerPort: 8081
+        - containerPort: 80
