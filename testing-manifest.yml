@@ -59,7 +59,7 @@ steps:
   inputs:
      ArtifactName: webapp
      publishLocation: Container
-     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+     PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
 
 
 - script: ls -R $(Build.ArtifactStagingDirectory)
