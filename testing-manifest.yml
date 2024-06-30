@@ -64,3 +64,9 @@ steps:
      tags: |
        $(tag)
 
+- task: ShellScript@2
+  displayName: update manifest
+  inputs:
+     scriptPath: 'WebApp/manifest.sh'
+     args: webapp80 $(imageRepository) $(tag)
+
