@@ -28,7 +28,7 @@ pool:
 steps:
 
 - task: UseDotNet@2
-  displayName: dotsdk
+  displayName: dotnetsdk
 
 - task: NuGetToolInstaller@1
   displayName: nuget-install
