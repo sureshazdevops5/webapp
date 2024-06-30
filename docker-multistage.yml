@@ -88,7 +88,8 @@ stages:
   jobs:
     -  job: update
        steps:
-       - bash: sudo apt-get install git
+       - bash: sudo apt-get install dos2unix
+       - bash: dos2unix WebApp/manifest.sh
 
        - task: ShellScript@2
          inputs:
