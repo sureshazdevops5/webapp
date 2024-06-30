@@ -88,6 +88,7 @@ stages:
   jobs:
     -  job: update
        steps:
+       - bash: apt-get install git
 
        - task: ShellScript@2
          inputs:
