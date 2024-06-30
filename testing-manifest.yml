@@ -24,42 +24,43 @@ variables:
 
 pool:
  vmImage: $(vmImageName)
-container: mcr.microsoft.com/dotnet/sdk:6.0
 
- - task: DotNetCoreCLI@2
-   displayName: Build
-   inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+steps:
 
- - task: DotNetCoreCLI@2
-   displayName: publish
-   inputs:
-    command: publish
+- task: UseDotNet@2
+  displayName: dotsdk
+  
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+   command: build
+   projects: '**/*.csproj'
+   arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: publish
+  inputs:
+   command: publish
    publishWebProjects: true
-    zipAfterPublish: false
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+   zipAfterPublish: false
+   arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
- - publish: '$(Build.ArtifactStagingDirectory)'
-   displayName: 'publish-build'
+- publish: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'publish-build'
   artifact: buildartifacts
 
- - script: ls -R $(Pipeline.Workspace)/buildartifacts
+- script: ls -R $(Pipeline.Workspace)/buildartifacts
 
 
 - task: Docker@2
   displayName: Build and push an image to container registry
-  inputs:
-   command: buildAndPush
-   buildContext: '$(Pipeline.Workspace)/buildartifacts/WebApp'
-   repository: $(imageRepository)
-   dockerfile: $(dockerfilePath)
-   containerRegistry: $(dockerRegistryServiceConnection)
-   tags: |
-      $(tag)
+  inputs: 
+     command: buildAndPush
+     buildContext: '$(Pipeline.Workspace)/buildartifacts/WebApp'
+     repository: $(imageRepository)
+     dockerfile: $(dockerfilePath)
+     containerRegistry: $(dockerRegistryServiceConnection)
+     tags: |
+       $(tag)
 
-- task: ShellScript@2
-  inputs:
-   scriptPath: 'WebApp/manifest.sh'
-   args: 'webapp80 $(imageRepository) $(tag)'
