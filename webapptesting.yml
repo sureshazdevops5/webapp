@@ -49,12 +49,7 @@ steps:
      ArtifactName: webapp
      PathtoPublish: '$(Build.ArtifactstagingDirectory)'
      publishLocation: Container
-- task: AzureFileCopy@6
-  displayName: copying to storage
-  inputs:
-     SourcePath: $(Build.ArtifactstagingDirectory)
-     azureSubscription: 'self-devops-webapp'
-     resourceGroup: 'sa-rg'
-     storage: 'satestsu'
-     ContainerName: test
-     Destination: AzureBlob
+- script: az storage blob upload-batch --source $(Build.ArtifactstagingDirectory)/webapp \
+                                 --destination https://satestsu.blob.core.windows.net/test \
+                                 --account-name satestsu \
+                                 --account-key 20AykbP4tpHqCtUk7sb5lyYFk/fbm1mhCGZNEtYbjcir0m2pArACWpDy3DEcecN/mWbhehYjeU3M+ASt1tB0Hw==
