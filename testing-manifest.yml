@@ -47,14 +47,6 @@ steps:
    projects: '**/*.csproj'
    arguments: '--configuration $(buildConfiguration)'
 
-- task: PublishBuildArtifacts@1
-  displayName: publish artifact
-  inputs:
-     ArtifactName: webapp
-     publishLocation: Container
-     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-
-
 - task: DotNetCoreCLI@2
   displayName: publish
   inputs:
@@ -62,6 +54,12 @@ steps:
    publishWebProjects: true
    zipAfterPublish: false
    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  displayName: publish artifact
+  inputs:
+     ArtifactName: webapp
+     publishLocation: Container
+     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
 
 - script: ls -R $(Build.ArtifactStagingDirectory)
