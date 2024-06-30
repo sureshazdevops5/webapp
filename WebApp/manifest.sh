@@ -10,6 +10,7 @@ git clone "$REPO_URL" /tmp/temp_repo
 
 # Navigate into the cloned repository directory
 cd /tmp/temp_repo
+ls -a
 
 # Make changes to the Kubernetes manifest file(s)
 # For example, let's say you want to change the image tag in a deployment.yaml file
