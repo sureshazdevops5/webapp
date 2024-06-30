@@ -69,7 +69,7 @@ steps:
   displayName: Build and push an image to container registry
   inputs: 
      command: buildAndPush
-     buildContext: '$(Build.ArtifactStagingDirectory)'
+     buildContext: '$(Build.ArtifactStagingDirectory)/webapp'
      repository: $(imageRepository)
      dockerfile: $(dockerfilePath)
      containerRegistry: $(dockerRegistryServiceConnection)
