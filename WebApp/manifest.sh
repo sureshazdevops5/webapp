@@ -10,19 +10,20 @@ git clone "$REPO_URL" /tmp/temp_repo
 
 # Navigate into the cloned repository directory
 cd /tmp/temp_repo
-ls -a
+ls -s 
+
 
 # Make changes to the Kubernetes manifest file(s)
 # For example, let's say you want to change the image tag in a deployment.yaml file
 sed -i "s|image:.*|image: testsureshacr.azurecr.io/$2:$3|g" WebApp/$1-service.yaml
-
+git config --global user.email "sureshazdevops5@gmail.com"
+git config --global user.name "Suresh"
 # Add the modified files
 git add .
 
 # Commit the changes
 git commit -m "Update Kubernetes manifest"
-git config --global user.email "sureshazdevops5@gmail.com"
-git config --global user.name "Suresh"
+
 #Omit --global
 # Push the changes back to the repository
 git push
