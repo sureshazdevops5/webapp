@@ -101,10 +101,3 @@ stages:
            $(tag)
 
 
-
-       - task: PublishPipelineArtifact@1
-         displayName: publish artifact
-         inputs:
-           publishLocation: pipeline
-           artifact: 'sourcefiles'
-           targetPath: $(pipeline.Workspace)
