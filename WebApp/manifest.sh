@@ -21,7 +21,9 @@ git add .
 
 # Commit the changes
 git commit -m "Update Kubernetes manifest"
-
+git config --global user.email "sureshazdevops5@gmail.com"
+git config --global user.name "Suresh"
+Omit --global
 # Push the changes back to the repository
 git push
 
