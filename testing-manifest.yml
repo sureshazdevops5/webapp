@@ -27,17 +27,6 @@ pool:
 container: mcr.microsoft.com/dotnet/sdk:6.0
 steps:
 
-
-- task: NuGetToolInstaller@1
-  displayName: nuget-install
-
-- task: NuGetCommand@2
-  displayName: nuget-restore
-  inputs:
-     command: restore
-     restoreSolution: $(solution)
-  
-
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
