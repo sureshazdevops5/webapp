@@ -29,6 +29,15 @@ steps:
 
 - task: UseDotNet@2
   displayName: dotsdk
+
+- task: NuGetToolInstaller@1
+  displayName: nuget-install
+
+- task: NuGetCommand@2
+  displayName: nuget-restore
+  inputs:
+     command: restore
+     restoreSolution: $(solution)
   
 
 - task: DotNetCoreCLI@2
