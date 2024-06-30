@@ -26,26 +26,26 @@ pool:
  vmImage: $(vmImageName)
 container: mcr.microsoft.com/dotnet/sdk:6.0
 
-- task: DotNetCoreCLI@2
-  displayName: Build
+ - task: DotNetCoreCLI@2
+   displayName: Build
    inputs:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: publish
-  inputs:
-   command: publish
+ - task: DotNetCoreCLI@2
+   displayName: publish
+   inputs:
+    command: publish
    publishWebProjects: true
-   zipAfterPublish: false
-   arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: false
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-- publish: '$(Build.ArtifactStagingDirectory)'
-  displayName: 'publish-build'
+ - publish: '$(Build.ArtifactStagingDirectory)'
+   displayName: 'publish-build'
   artifact: buildartifacts
 
-- script: ls -R $(Pipeline.Workspace)/buildartifacts
+ - script: ls -R $(Pipeline.Workspace)/buildartifacts
 
 
 - task: Docker@2
@@ -58,11 +58,6 @@ container: mcr.microsoft.com/dotnet/sdk:6.0
    containerRegistry: $(dockerRegistryServiceConnection)
    tags: |
       $(tag)
-- task: PublishPipelineArtifact@1
-  inputs:
-   artifact: 'sourcefiles'
-   targetPath: '$(Pipeline.Workspace)'
-   publishLocation: pipeline
 
 - task: ShellScript@2
   inputs:
