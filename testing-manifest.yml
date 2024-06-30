@@ -55,7 +55,7 @@ steps:
    command: publish
    publishWebProjects: true
    zipAfterPublish: false
-   arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+   arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/webapp'
 - task: PublishBuildArtifacts@1
   displayName: publish artifact
   inputs:
