@@ -24,11 +24,9 @@ variables:
 
 pool:
  vmImage: $(vmImageName)
-
+container: mcr.microsoft.com/dotnet/sdk:6.0
 steps:
 
-- task: UseDotNet@2
-  displayName: dotnetsdk
 
 - task: NuGetToolInstaller@1
   displayName: nuget-install
