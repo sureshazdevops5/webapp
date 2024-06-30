@@ -94,7 +94,7 @@ stages:
        - task: ShellScript@2
          inputs:
            scriptPath: 'WebApp/manifest.sh'
-           args: 'webapp80 $(imageRepository) $(tag)'
+           args: 'webapp8080 $(imageRepository) $(tag)'
          env:
             PAT: $(System.AccessToken)
 
