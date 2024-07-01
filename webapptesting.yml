@@ -41,19 +41,19 @@ steps:
      command: publish
      publishWebProjects: true
      zipAfterPublish: false
-     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactstagingDirectory)'
+     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactstagingDirectory)/webapp'
 
 - task: PublishBuildArtifacts@1
   displayName: build artifact
   inputs:
      ArtifactName: webapp
-     PathtoPublish: '$(Build.ArtifactstagingDirectory)'
+     PathtoPublish: '$(Build.ArtifactstagingDirectory)/webapp'
      publishLocation: Container
 - task: AzureFileCopy@4
   displayName: copy artifact to azure
   inputs:
      azureSubscription: 'self-devops-webapp'
-     SourcePath: '$(Build.ArtifactstagingDirectory)'
+     SourcePath: '$(Build.ArtifactstagingDirectory)/webapp'
      Destination: AzureBlob
      storage: 'satestsu'
      ContainerName: 'test'
