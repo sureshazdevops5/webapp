@@ -49,11 +49,15 @@ steps:
      ArtifactName: webapp
      PathtoPublish: '$(Build.ArtifactstagingDirectory)/webapp'
      publishLocation: Container
-- task: AzureFileCopy@6
-  displayName: copy to storage
+- task: PowerShell@2
   inputs:
-     SourcePath: '$(Build.ArtifactstagingDirectory)/webapp'
-     azureSubscription: 'self-devops-webapp'
-     Destination: AzureBlob
-     storage: 'satestsu'
-     ContainerName: 'test'
+    targetType: 'inline'
+    script: |
+      $StorageAccountName = "satestsu"
+      $StorageAccountKey = "fnUM3Z0ONk9EOrMZx3AmhhPqev7ypFbS6WgORF87bdoi2UK8U7bH7NcxEPu0O3tfL4qi2WHFTOOF+AStkeRJAg=="
+      $ContainerName = "test"
+      $LocalFolder = "$(Build.ArtifactstagingDirectory)/webapp"
+      $BlobName = "webapp"
+      
+      $Context = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $StorageAccountKey
+      Set-AzStorageBlobContent -Context $Context -Container $ContainerName -File $LocalFolder -Blob $BlobName
