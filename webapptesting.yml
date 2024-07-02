@@ -60,4 +60,3 @@ steps:
      storage: 'satestsu'
      ContainerName: 'test'
      Destination: AzureBlob
-     BlobPrefix: 'https://satestsu.blob.core.windows.net/test'
