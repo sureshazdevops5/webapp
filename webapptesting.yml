@@ -50,12 +50,7 @@ steps:
      PathtoPublish: '$(Build.ArtifactstagingDirectory)/webapp'
      publishLocation: Container
 
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: 'self-devops-webapp'
-    ScriptType: 'InlineScript'
-    Inline: |
-      Update-Module Az -Force
+
 
 - task: AzureFileCopy@6
   displayName: copy to storage account
