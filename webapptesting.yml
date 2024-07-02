@@ -57,15 +57,12 @@ steps:
     Inline: |
       Update-Module Az -Force
 
-- task: PowerShell@2
+- task: AzureFileCopy@6
+  displayName: copy to storage account
   inputs:
-    targetType: 'inline'
-    script: |
-      $StorageAccountName = "satestsu"
-      $StorageAccountKey = "fnUM3Z0ONk9EOrMZx3AmhhPqev7ypFbS6WgORF87bdoi2UK8U7bH7NcxEPu0O3tfL4qi2WHFTOOF+AStkeRJAg=="
-      $ContainerName = "test"
-      $LocalFolder = "$(Build.ArtifactstagingDirectory)/webapp"
-      $BlobName = "webapp"
-      
-      $Context = New-AzStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $StorageAccountKey
-      Set-AzStorageBlobContent -Context $Context -Container $ContainerName -File $LocalFolder -Blob $BlobName
+     azureSubscription: 'self-devops-webapp'
+     SourcePath: '$(Build.ArtifactstagingDirectory)/webapp'
+     storage: 'satestsu'
+     ContainerName: 'test'
+     Destination: AzureBlob
+     BlobPrefix: 'https://satestsu.blob.core.windows.net/test'
