@@ -1,0 +1,62 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: UseDotNet@2
+  displayName: use dotnet core
+  inputs:
+     packageType: 'sdk'
+     version: '6.x'
+
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet build
+  inputs:
+     command: build
+     arguments: '--configuration $(buildConfiguratoin)'
+     projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet publish
+  inputs:
+     command: publish
+     publishWebProjects: true
+     zipAfterPublish: false
+     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactstagingDirectory)/webapp-$(Build.BuildNumber)'
+
+- task: PublishBuildArtifacts@1
+  displayName: build artifact
+  inputs:
+     ArtifactName: webapp
+     PathtoPublish: '$(Build.ArtifactstagingDirectory)/webapp-$(Build.BuildNumber)'
+     publishLocation: Container
+
+
+
+- task: AzureFileCopy@6
+  displayName: copy to storage account
+  inputs:
+     azureSubscription: 'self-devops-webapp'
+     SourcePath: '$(Build.ArtifactstagingDirectory)/webapp-$(Build.BuildNumber)'
+     storage: 'satestsu'
+     ContainerName: 'test'
+     Destination: AzureBlob
