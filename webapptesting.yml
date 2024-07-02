@@ -13,6 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  buildformatnumber: $(Date:ddMMyyyy)-$(Rev:r)
 
 steps:
 - task: NuGetToolInstaller@1
@@ -41,13 +42,13 @@ steps:
      command: publish
      publishWebProjects: true
      zipAfterPublish: false
-     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactstagingDirectory)/webapp-$(Build.BuildId)'
+     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactstagingDirectory)/webapp-$(buildformatnumber)'
 
 - task: PublishBuildArtifacts@1
   displayName: build artifact
   inputs:
      ArtifactName: webapp
-     PathtoPublish: '$(Build.ArtifactstagingDirectory)/webapp-$(Build.BuildId)'
+     PathtoPublish: '$(Build.ArtifactstagingDirectory)/webapp-$(buildformatnumber)'
      publishLocation: Container
 
 
@@ -56,7 +57,7 @@ steps:
   displayName: copy to storage account
   inputs:
      azureSubscription: 'self-devops-webapp'
-     SourcePath: '$(Build.ArtifactstagingDirectory)/webapp-$(Build.BuildId)'
+     SourcePath: '$(Build.ArtifactstagingDirectory)/webapp-$(buildformatnumber)'
      storage: 'satestsu'
      ContainerName: 'test'
      Destination: AzureBlob
