@@ -18,7 +18,6 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  System.AccessToken: 'cccq6o4fmhqvd6najjscvh7d4ljjbb2aen6fnbvip4cz34jmk2ea'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
