@@ -76,27 +76,7 @@ stages:
             containerRegistry: $(dockerRegistryServiceConnection)
             tags: |
              $(tag)
-        - task: PublishPipelineArtifact@1
-          inputs:
-             artifact: 'sourcefiles'
-             targetPath: '$(Pipeline.Workspace)'
-             publishLocation: pipeline
 
-
-- stage: update
-  displayName: update manifest
-  jobs:
-    -  job: update
-       steps:
-       - bash: sudo apt-get install dos2unix
-       - bash: dos2unix WebApp/manifest.sh
-
-       - task: ShellScript@2
-         inputs:
-           scriptPath: 'WebApp/manifest.sh'
-           args: 'webapp80 $(imageRepository) $(tag)'
-         env:
-            PAT: $(System.AccessToken)
 
 
 
