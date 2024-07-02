@@ -18,69 +18,82 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  System.AccessToken: 'cccq6o4fmhqvd6najjscvh7d4ljjbb2aen6fnbvip4cz34jmk2ea'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+stages:
+- stage: Build
+  displayName: Build Stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    container: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      -  task: DotNetCoreCLI@2
+         displayName: Build
+         inputs:
+            command: build
+            projects: '**/*.csproj'
+            arguments: '--configuration $(buildConfiguration)'
 
-pool:
- vmImage: $(vmImageName)
+      - task: DotNetCoreCLI@2
+        displayName: publish
+        inputs:
+           command: publish
+           publishWebProjects: true
+           zipAfterPublish: false
+           arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-steps:
-- task: UseDotNet@2
-  displayName: use dotnet
-  inputs:
-    packageType: sdk
-    version: '6.x'
+      - publish: '$(Build.ArtifactStagingDirectory)'
+        displayName: 'publish-build'
+        artifact: buildartifacts
 
-- task: NuGetToolInstaller@1
-  displayName: nuget install
+- stage: Deploy
+  displayName: Push-Stage
+  jobs:
+    -  job: Deploy
+       displayName: Deploy
+       pool:
+         vmImage: $(vmImageName)
 
+       steps:
+        - download: current
+          artifact: buildartifacts
 
-- task: NuGetCommand@2
-  displayName: nuget restore
-  inputs:
-    command: restore
-    restoreSolution: $(solutions)
-
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-   command: build
-   projects: '**/*.csproj'
-   arguments: '--configuration $(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  displayName: publish
-  inputs:
-   command: publish
-   publishWebProjects: true
-   zipAfterPublish: false
-   arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/webapp'
-- task: PublishBuildArtifacts@1
-  displayName: publish artifact
-  inputs:
-     ArtifactName: webapp
-     publishLocation: Container
-     PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
-
-
-- script: ls -R $(Build.ArtifactStagingDirectory)
+        - script: ls -R $(Pipeline.Workspace)/buildartifacts
 
 
-- task: Docker@2
-  displayName: Build and push an image to container registry
-  inputs: 
-     command: buildAndPush
-     buildContext: '$(Build.ArtifactStagingDirectory)/webapp'
-     repository: $(imageRepository)
-     dockerfile: $(dockerfilePath)
-     containerRegistry: $(dockerRegistryServiceConnection)
-     tags: |
-       $(tag)
+        - task: Docker@2
+          displayName: Build and push an image to container registry
+          inputs:
+            command: buildAndPush
+            buildContext: '$(Pipeline.Workspace)/buildartifacts/WebApp'
+            repository: $(imageRepository)
+            dockerfile: $(dockerfilePath)
+            containerRegistry: $(dockerRegistryServiceConnection)
+            tags: |
+             $(tag)
+        - task: PublishPipelineArtifact@1
+          inputs:
+             artifact: 'sourcefiles'
+             targetPath: '$(Pipeline.Workspace)'
+             publishLocation: pipeline
 
-- task: ShellScript@2
+
+- stage: update
   displayName: update manifest
-  inputs:
-     scriptPath: 'WebApp/manifest.sh'
-     args: webapp80 $(imageRepository) $(tag)
+  jobs:
+    -  job: update
+       steps:
+       - bash: sudo apt-get install dos2unix
+       - bash: dos2unix WebApp/manifest.sh
 
+       - task: ShellScript@2
+         inputs:
+           scriptPath: 'WebApp/manifest.sh'
+           args: 'webapp80 $(imageRepository) $(tag)'
+         env:
+            PAT: $(System.AccessToken)
