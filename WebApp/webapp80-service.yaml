@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
       - name: webapp80
-        image: testsureshacr.azurecr.io/webapplication:152
+        image: testsureshacr.azurecr.io/webapplication:153
         ports:
         - containerPort: 80
