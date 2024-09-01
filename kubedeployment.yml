@@ -102,9 +102,8 @@ stages:
   jobs:
     -  job: deploy
        steps:
-       - download: current
-         artifact: buildartifacts
-       - script: ls -R $(Pipeline.Workspace)/buildartifacts
+       - checkout: self
+       - script: ls -R $(Build.SourcesDirectory)/WebApp
 
 
        - task: KubernetesManifest@1
@@ -113,4 +112,4 @@ stages:
           connectionType: 'kubernetesServiceConnection'
           kubernetesServiceConnection: 'kube-spn'
           namespace: 'webapp'
-          manifests: '$(Pipeline.Workspace)/buildartifacts/WebApp/webapp80-service.yaml'
+          manifests: '$(Build.SourcesDirectory)/WebApp/webapp80-service.yaml'
