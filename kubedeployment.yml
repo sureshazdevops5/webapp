@@ -97,3 +97,14 @@ stages:
            args: 'webapp80 $(imageRepository) $(tag)'
          env:
             PAT: $(System.AccessToken)
+- stage: kubernatesdeployment
+  displayName: kubernates deployment
+  jobs:
+    -  job: deploy
+       steps:
+       - task: KubernetesManifest@1
+         displayName: deploy kubenrates
+         inputs:
+          kubernetesServiceConnection: 'kube-spn'
+          namespace: 'webapp'
+          manifests: '$(System.DefaultWorkingDirectory)/_webapp/WebApp/webapp80-service.yaml'
