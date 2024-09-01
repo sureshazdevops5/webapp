@@ -107,4 +107,4 @@ stages:
          inputs:
           kubernetesServiceConnection: 'kube-spn'
           namespace: 'webapp'
-          manifests: '$(System.DefaultWorkingDirectory)/_webapp/WebApp/webapp80-service.yaml'
+          manifests: '_webapp/WebApp/webapp80-service.yaml'
