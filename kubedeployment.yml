@@ -102,9 +102,11 @@ stages:
   jobs:
     -  job: deploy
        steps:
+
        - task: KubernetesManifest@1
-         displayName: deploy kubenrates
          inputs:
+          action: 'deploy'
+          connectionType: 'kubernetesServiceConnection'
           kubernetesServiceConnection: 'kube-spn'
           namespace: 'webapp'
-          manifests: '_webapp/WebApp/webapp80-service.yaml'
+          manifests: '$(System.DefaultWorkingDirectory)/_webapp/WebApp/webapp80-service.yaml'
