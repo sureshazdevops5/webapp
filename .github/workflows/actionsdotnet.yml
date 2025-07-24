@@ -18,23 +18,18 @@ jobs:
     - name: Install .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'  # Change this as per your need
+        dotnet-version: '8.0.x'
 
-    - name: Install NuGet CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y nuget
+    - name: Restore packages
+      run: dotnet restore WebApp/WebApp.sln
 
-    - name: NuGet restore
-      run: nuget restore WebApp/WebApp.sln
-
-    - name: Build using dotnet CLI
+    - name: Build project
       run: dotnet build WebApp/WebApp.csproj --configuration Release --no-restore
 
-    - name: Publish App
+    - name: Publish project
       run: dotnet publish WebApp/WebApp.csproj --configuration Release --output ./output --no-build
 
-    - name: Upload Published Artifact
+    - name: Upload published artifact
       uses: actions/upload-artifact@v4
       with:
         name: published-artifact
