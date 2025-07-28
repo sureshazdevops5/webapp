@@ -34,39 +34,38 @@ jobs:
       with:
         name: published-artifact
         path: ./output
-
   deploy:
-    permissions:
-     contents: write
-     pages: write
-     id-token: write
-    environment:
-     name: production
-     url: ${{ steps.deployment.outputs.page_url }
-    runs-on: ubuntu-latest
+   permissions:
+    contents: write
+    pages: write
+    id-token: write
+   environment:
+    name: production
+    url: ${{ steps.deployment.outputs.page_url }}
+   runs-on: ubuntu-latest
 
-    steps:
-       - name: Checkout code
-         uses: actions/checkout@v4
+   steps:
+   - name: Checkout code
+     uses: actions/checkout@v4
 
-       - name: Install .NET SDK
-         uses: actions/setup-dotnet@v4
-         with:
-          dotnet-version: '8.0.x'
+   - name: Install .NET SDK
+     uses: actions/setup-dotnet@v4
+     with:
+       dotnet-version: '8.0.x'
 
-       - name: Restore packages
-         run: dotnet restore WebApp.sln
+   - name: Restore packages
+     run: dotnet restore WebApp.sln
 
-       - name: Build project
-         run: dotnet build WebApp/WebApp.csproj --configuration Release --no-restore
+   - name: Build project
+     run: dotnet build WebApp/WebApp.csproj --configuration Release --no-restore
 
-       - name: Publish project
-         run: dotnet publish WebApp/WebApp.csproj --configuration Release --output ./output --no-build
+   - name: Publish project
+     run: dotnet publish WebApp/WebApp.csproj --configuration Release --output ./output --no-build
 
-       - name: upload artifacts to pages
-         uses: actions/upload-pages-artifact@v3
-         with:
-          path: "./out" 
-       - name: deploy
-         id: deployment
-         uses: actions/deploy-pages@v4
+   - name: upload artifacts to pages
+     uses: actions/upload-pages-artifact@v3
+     with:
+      path: "./output" 
+   - name: deploy
+     id: deployment
+     uses: actions/deploy-pages@v4
