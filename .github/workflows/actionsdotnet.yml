@@ -39,9 +39,7 @@ jobs:
     contents: write
     pages: write
     id-token: write
-   environment:
-    name: production
-    url: ${{ steps.deployment.outputs.page_url }}
+
    runs-on: ubuntu-latest
 
    steps:
