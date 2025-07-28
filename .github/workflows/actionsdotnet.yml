@@ -34,3 +34,10 @@ jobs:
       with:
         name: published-artifact
         path: ./output
+    - name: upload artifacts
+      uses: actions/upload-pages-artifact@v3
+      with:
+       path: "./out" 
+    - name: deploy
+      id: deployment
+      uses: actions/deploy-pages@v4
