@@ -35,7 +35,7 @@ jobs:
         name: published-artifact
         path: ./output
 
-deploy:
+  deploy:
     permissions:
      contents: write
      pages: write
