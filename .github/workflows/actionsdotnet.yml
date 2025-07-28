@@ -65,7 +65,7 @@ jobs:
    - name: upload artifacts to pages
      uses: actions/upload-pages-artifact@v3
      with:
-      path: "./output" 
+      path: "./output/wwwroot" 
    - name: deploy
      id: deployment
      uses: actions/deploy-pages@v4
