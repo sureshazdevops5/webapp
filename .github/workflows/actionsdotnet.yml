@@ -62,9 +62,16 @@ jobs:
    - name: Publish project
      run: dotnet publish WebApp/WebApp.csproj --configuration Release --output ./output --no-build
 
+   - name: Azure Login via OIDC
+     uses: azure/login@v1
+     with:
+        client-id: ${{ secrets.AZURE_CLIENT }}
+        tenant-id: ${{ secrets.AZURE_TENANT }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION }}
+        client-secret: ${{ secrets.AZURE_SECRET }}
+
    - name: Deploy to Azure Web App
      uses: azure/webapps-deploy@v2
      with:
-        app-name: ${{ secrets.suretestapp }}
-        publish-profile: ${{ secrets.suretestapp }}
-        package: ./publish_output
+        app-name: suretestapp
+        package: ./output
