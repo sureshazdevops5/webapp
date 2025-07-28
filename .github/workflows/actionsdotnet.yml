@@ -35,17 +35,17 @@ jobs:
         name: published-artifact
         path: ./output
 
-  deploy:
-   permissions:
-    contents: write
-    pages: write
-    id-token: write
-   environment:
-    name: production
-    url: ${{ steps.deployment.outputs.page_url }
-   runs-on: ubuntu-latest
+deploy:
+    permissions:
+     contents: write
+     pages: write
+     id-token: write
+    environment:
+     name: production
+     url: ${{ steps.deployment.outputs.page_url }
+    runs-on: ubuntu-latest
 
-   steps:
+     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
