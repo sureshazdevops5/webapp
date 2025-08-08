@@ -2,14 +2,14 @@ name: .net build and test
 on: workflow_dispatch
 jobs:
  build:
- runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
 
- steps:
-  - uses: actions/checkout@v4
+  steps:
+   - uses: actions/checkout@v4
   
-  - name: setup dotnet
-  - uses: actions/setup-dotnet@v4
-    with:
-     dotnet-version: 3.1
-  - name: version check
-    run: dotnet --version
+   - name: setup dotnet
+   - uses: actions/setup-dotnet@v4
+     with:
+       dotnet-version: 3.1
+   - name: version check
+     run: dotnet --version
