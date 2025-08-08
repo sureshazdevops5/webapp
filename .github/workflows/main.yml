@@ -3,13 +3,17 @@ on: workflow_dispatch
 jobs:
  build:
   runs-on: ubuntu-latest
+  strategy:
+   matrix:
+    dotnet-version: ['3.1.x' , '6.0.x']
 
   steps:
    - uses: actions/checkout@v4
   
-   - name: setup dotnet
+   - name: setup dotnet ${{matrix.dotnet-version}}
    - uses: actions/setup-dotnet@v4
      with:
-       dotnet-version: 3.1
+       dotnet-version: ${{matrix.dotnet-version}}
+              
    - name: version check
      run: dotnet --version
