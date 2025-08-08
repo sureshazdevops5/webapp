@@ -24,4 +24,4 @@ jobs:
     - name: Upload dotnet build results
       uses: actions/upload-artifact@v4
       with:
-        path: /home/runner/work/webapp/webapp/WebApp/bin/Debug/net6.0/WebApp.dll
+        path: /home/runner/work/webapp/
