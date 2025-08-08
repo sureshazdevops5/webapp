@@ -25,3 +25,16 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         path: /home/runner/work/webapp/
+
+    - name: Azure Login via OIDC
+      uses: azure/login@v1
+      with:
+        client-id: 710b93b9-2fb7-4921-b45d-10fe45488c4d
+        tenant-id: d52325e9-0810-46ae-89ca-93a81ab43fb7
+        subscription-id: 082a5822-b215-41a0-919f-0527e9956494
+        
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: suretestapp
+        package: /home/runner/work/webapp/
