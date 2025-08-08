@@ -2,11 +2,11 @@ name: dot net package
 on: workflow_dispatch
 jobs:
   build:
-   permissions:
-    contents: write
-    pages: write
-    id-token: write
-  runs-on: ubuntu-latest
+    permissions:
+     contents: write
+     pages: write
+     id-token: write
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
